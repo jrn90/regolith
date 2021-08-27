@@ -2,19 +2,31 @@
 
 # Install Script for Regolith Linux Setup
 
-user="joe"
-
 not_root() {
 	[ "$(id -u)" -ne 0 ]; 
+}
+
+install_code() {
+	wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+	sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+	sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+	rm -f packages.microsoft.gpg
+	sudo apt install apt-transport-https
+	sudo apt update
+	sudo apt install code
 }
 
 install_curl() {
 	sudo apt-get install curl -y
 }
 
-download_nvidia() {
-	curl --progress-bar https://us.download.nvidia.com/XFree86/Linux-x86_64/470.63.01/NVIDIA-Linux-x86_64-470.63.01.run --output /home/$user/Downloads/nvidia_drivers.run
-	sudo chmod +x /home/$user/Downloads/nvidia_drivers.run
+install_regolith() {
+	sudo apt-add-repository ppa:regolith-linux/release -y
+	sudo apt install regolith-desktop-mobile -y
+}
+
+install_vim() {
+	sudo apt install vim -y
 }
 
 if not_root; then
@@ -23,7 +35,7 @@ if not_root; then
 fi
 
 # installers
+install_code
 install_curl
-
-# downloads
-download_nvidia
+install_regolith
+install_vim
