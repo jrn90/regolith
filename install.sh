@@ -20,6 +20,10 @@ install_curl() {
 	sudo apt-get install curl -y
 }
 
+install_gcc() {
+	sudo apt install gcc -y
+}
+
 install_regolith() {
 	sudo apt-add-repository ppa:regolith-linux/release -y
 	sudo apt install regolith-desktop-mobile -y
@@ -37,5 +41,6 @@ fi
 # installers
 install_code
 install_curl
+install_gcc
 install_regolith
 install_vim
