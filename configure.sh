@@ -25,6 +25,14 @@ configure_font() {
 	rm /home/$user/Downloads/font.zip
 }
 
+configure_go() {
+	curl -L https://golang.org/dl/go1.17.linux-amd64.tar.gz --output /home/$user/Downloads/go1.17.linux-amd64.tar.gz
+	sudo rm -rf /usr/local/go
+	sudo tar -C /usr/local -xzf /home/$user/Downloads/go1.17.linux-amd64.tar.gz
+	echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/$user/.profile
+	rm /home/$user/Downloads/go1.17.linux-amd64.tar.gz
+}
+
 configure_look() {
 	sudo apt install regolith-look-ubuntu -y
 	regolith-look set ubuntu
@@ -33,5 +41,6 @@ configure_look() {
 
 configure_code
 configure_font
+configure_go
 configure_look
 
