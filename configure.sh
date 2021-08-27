@@ -3,11 +3,7 @@
 # Configure Regolith
 # Run this file when inside of Regolith
 
-set -e
-
-not_root() {
-	[ "$(id -u)" -ne 0 ];
-}
+user="joe"
 
 configure_code() {
 	code --install-extension golang.Go
@@ -20,18 +16,22 @@ configure_code() {
 	code --install-extension Gruntfuggly.todo-tree	
 }
 
+configure_font() {
+	curl -L https://github.com/microsoft/cascadia-code/releases/download/v2106.17/CascadiaCode-2106.17.zip --output /home/$user/Downloads/font.zip
+	unzip -q -o /home/$user/Downloads/font.zip -d /home/$user/Downloads/font
+	mkdir /home/$user/.fonts
+	cp /home/$user/Downloads/font/ttf/CascadiaCodePL.ttf /home/$user/.fonts/
+	rm -r /home/$user/Downloads/font
+	rm /home/$user/Downloads/font.zip
+}
+
 configure_look() {
 	sudo apt install regolith-look-ubuntu -y
 	regolith-look set ubuntu
 	regolith-look refresh
 }
 
-if not_root; then
-	echo 'Please run as root'
-	exit 1
-fi
-
 configure_code
+configure_font
 configure_look
-
 
