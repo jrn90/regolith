@@ -16,6 +16,12 @@ configure_code() {
 	code --install-extension Gruntfuggly.todo-tree	
 }
 
+configure_docker() {
+	sudo groupadd docker
+	sudo usermod -aG docker $USER
+	newgrp docker
+}
+
 configure_font() {
 	curl -L https://github.com/microsoft/cascadia-code/releases/download/v2106.17/CascadiaCode-2106.17.zip --output /home/$user/Downloads/font.zip
 	unzip -q -o /home/$user/Downloads/font.zip -d /home/$user/Downloads/font
@@ -40,6 +46,7 @@ configure_look() {
 }
 
 configure_code
+configure_docker
 configure_font
 configure_go
 configure_look

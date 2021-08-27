@@ -2,26 +2,25 @@
 
 # Install Script for Regolith Linux Setup
 
-not_root() {
-	[ "$(id -u)" -ne 0 ]; 
-}
+. ./deps.sh
 
 install_code() {
 	wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 	sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 	sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 	rm -f packages.microsoft.gpg
-	sudo apt install apt-transport-https
-	sudo apt update
 	sudo apt install code
 }
 
-install_curl() {
-	sudo apt-get install curl -y
-}
-
-install_gcc() {
-	sudo apt install gcc -y
+install_docker() {
+	# remove old
+	sudo apt-get remove docker docker-engine docker.io containerd runc -y
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt-get update
+	sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 }
 
 install_regolith() {
@@ -33,14 +32,12 @@ install_vim() {
 	sudo apt install vim -y
 }
 
-if not_root; then
-	echo 'Please run as root'
-	exit 1
-fi
+# deps
+install_deps
 
 # installers
 install_code
-install_curl
-install_gcc
+install_docker
 install_regolith
 install_vim
+
