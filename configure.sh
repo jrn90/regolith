@@ -40,8 +40,8 @@ configure_go() {
 }
 
 configure_look() {
-	sudo apt install regolith-look-ubuntu -y
-	regolith-look set ubuntu
+	sudo apt install regolith-look-dracula -y
+	regolith-look set dracula
 	regolith-look refresh
 }
 

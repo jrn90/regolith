@@ -23,6 +23,18 @@ install_docker() {
 	sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 }
 
+install_docker_compose() {
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+}
+
+install_flatpak() {
+	sudo apt install flatpak -y
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	# Install Mark Text
+	flatpak install flathub com.github.marktext.marktext -y
+}
+
 install_regolith() {
 	sudo apt-add-repository ppa:regolith-linux/release -y
 	sudo apt install regolith-desktop-mobile -y
@@ -38,6 +50,8 @@ install_deps
 # installers
 install_code
 install_docker
+install_docker_compose
+install_flatpak
 install_regolith
 install_vim
 
