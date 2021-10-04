@@ -33,6 +33,12 @@ install_flatpak() {
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	# Install Mark Text
 	flatpak install flathub com.github.marktext.marktext -y
+	# Install Slack
+	flatpak install flathub com.slack.Slack -y
+}
+
+install_htop() {
+	sudo apt install htop -y
 }
 
 install_regolith() {
@@ -52,6 +58,7 @@ install_code
 install_docker
 install_docker_compose
 install_flatpak
+install_htop
 install_regolith
 install_vim
 
