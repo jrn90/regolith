@@ -33,6 +33,8 @@ install_flatpak() {
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	# Install Mark Text
 	flatpak install flathub com.github.marktext.marktext -y
+	# Install Obsidian
+	flatpak install flathub md.obsidian.Obsidian
 	# Install Slack
 	flatpak install flathub com.slack.Slack -y
 }
