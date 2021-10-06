@@ -34,9 +34,11 @@ install_flatpak() {
 	# Install Mark Text
 	flatpak install flathub com.github.marktext.marktext -y
 	# Install Obsidian
-	flatpak install flathub md.obsidian.Obsidian
+	flatpak install flathub md.obsidian.Obsidian -y
 	# Install Slack
 	flatpak install flathub com.slack.Slack -y
+	# Install Spotify
+	flatpak install flathub com.spotify.Client -y
 }
 
 install_htop() {
