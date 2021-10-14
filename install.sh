@@ -54,6 +54,10 @@ install_vim() {
 	sudo apt install vim -y
 }
 
+install_xclip() {
+	sudo apt install xclip -y
+}
+
 # deps
 install_deps
 
@@ -65,4 +69,5 @@ install_flatpak
 install_htop
 install_regolith
 install_vim
+install_xclip
 
